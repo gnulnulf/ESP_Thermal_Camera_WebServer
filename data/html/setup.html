@@ -1,0 +1,111 @@
+<!doctype html>
+<!--
+	Copyright (c) 2021 Arco van Geest <arco@appeltaart.mine.nu>
+-->
+<html lang="en">
+<head>
+<title>MLX90640 Webserver setup</title>
+
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="jquery-ui.css">
+ 
+  <script src="jquery-3.6.0.js"></script>
+  <script src="jquery-ui.js"></script>
+
+  <style id="local-css" type="text/css">
+      body { margin: 1em;}
+body {
+	font-family: Arial, Helvetica, sans-serif;
+    background-color: black;
+    color: white;
+}
+
+.navbar a { color: white}
+
+
+table {
+	font-size: 1em;
+}
+label {
+    /* border: 1px solid red; */
+    display:inline-block;
+    width: 10em}
+
+#flir_canvas {
+    width: 320px;
+    height: 240px;
+}
+.ui-draggable, .ui-droppable {
+	background-position: top;
+}
+    /* EOS */
+  </style>
+</head>
+<body>
+<div class="navbar"><a href="index.html">Camera</a> - <a href="setup.html">Setup</a> - <a href="info.html">Info</a></div><br />
+<h1>MLX90640 setup</h1>
+<!-- 
+<div id="jsondata"></div>
+<pre id="json-renderer"></pre>
+
+<form>
+<textarea rows="20" cols="130" id="debugarea"></textarea><br />
+<button type="button" id="testbutton">Test</button>
+</form>
+
+-->
+<form action="/cgi/save" method="post">
+    <label for="sta_ssid">Station SSID</label>&nbsp;<input type="text" name="sta_ssid" id="sta_ssid"><br />
+    <label for="sta_password">Station Password</label>&nbsp;<input type="text" name="sta_password" id="sta_password"><br />
+<input type="submit" value="Save">
+</form>
+
+<script type="text/javascript">//<![CDATA[
+
+var settingsjsonurl = "/cgi/settings";
+
+$(document).ready(function() {
+    //setInterval(updatejson, 500);
+    updatejson();
+});
+
+
+function updatejson() {
+$.getJSON( settingsjsonurl , function( data ) {
+  var items = [];
+  $('#sta_ssid').val(data.stassid);
+  $('#sta_password').val(data.stapassword);
+
+//  $('#debugarea').val( 
+ //       temp_min
+  //  );
+  /*$( "<ul/>", {
+    "class": "my-new-list",
+    html: items.join( "" )
+  }).appendTo( "body" ); */
+});
+
+}
+
+
+
+$('#testbutton').bind( 'click', function(evt) {
+    $('#debugarea').val( 
+        iron_palette.length
+    );
+        updatejson();
+        	}
+);
+
+
+//]]></script>
+  
+  
+  
+  
+  
+
+  
+</body>
+</html> 
