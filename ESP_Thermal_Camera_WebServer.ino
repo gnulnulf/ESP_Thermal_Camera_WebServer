@@ -10,7 +10,7 @@
 
 
 // test html application/json 
-// cd ESP_Thermal_Camera_WebServer/data
+// cd ESP_Thermal_Camera_WebServer/data/html
 // $ python -m http.server 8000
 
 #include <SPI.h>
