@@ -34,11 +34,26 @@ paramsMLX90640 mlx90640;
 volatile boolean dataready;
 
 // You can use any (4 or) 5 pins
+/*
+// esp32 18650
 #define sclk 18
 #define mosi 23
 #define cs   17
 #define rst  5
 #define dc   16
+*/
+
+// esp32_s2
+#define I2C_SDA 8
+#define I2C_SCL 7
+
+#define sclk 12
+#define mosi 11
+//#define miso 13
+#define cs   1
+#define rst  2
+#define dc   3
+
 
 
 // Color definitions
@@ -128,6 +143,10 @@ void notFound(AsyncWebServerRequest *request) {
 
 float p = 3.1415926;
 Adafruit_SSD1331 display = Adafruit_SSD1331(cs, dc, mosi, sclk, rst);
+  //Adafruit_SSD1331(int8_t cs, int8_t dc, int8_t mosi, int8_t sclk, int8_t rst);
+  //Adafruit_SSD1331(int8_t cs, int8_t dc, int8_t rst);
+  // 3-4 args using hardware SPI (must specify peripheral) (reset optional)
+  //Adafruit_SSD1331(SPIClass *spi, int8_t cs, int8_t dc, int8_t rst = -1);
 
 float MaxTemp = 0;
 float MinTemp = 0;
@@ -390,7 +409,7 @@ framedata += " ] }";
 
 void setup()
 {
-  Wire.begin();
+  Wire.begin(I2C_SDA,I2C_SCL);
   Wire.setClock(400000); //Increase I2C clock speed to 400kHz
   Serial.begin(115200);while (!Serial); //Wait for user to open terminal
 
